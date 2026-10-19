@@ -1,0 +1,2 @@
+[probe] uniform  h/R = 1/192  dof 398973  V_f/V* = 1.00001945  p_f/p* = 1.00002071  (fold file fold_h192_g1_b1_rb0.5_20261017-084124.npz)
+[probe] lam_P -3.146e-13  lam_2 0.282337  lam_G 0.282337  lam_V(1e8) 0.282337  lam_V(1e10) 0.282337  c_phi 1.125029  interlacing ok: True  (5355 s)

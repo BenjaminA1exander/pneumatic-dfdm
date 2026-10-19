@@ -15,6 +15,7 @@ land one level up, with a later time stamp.
 | `fold_h{12,24,48,96,192}_g0.25_b10_rb0.5_w0.125_blend_*.npz` | `cap_verify.py` `FOLD_ONLY=1 CAP=zoned` | same, zoned cap; Fig. 3(e) zoned |
 | `verify_h{6,12,24,48}_g1_b1_rb0.5_*.npz` | `cap_verify.py` `CAP=uniform` | Table 1 gradient ratio and (1+S)^2; Fig. 3(d); pole exponents |
 | `verify_h{12,24,48}_g0.25_b10_rb0.5_w0.125_blend_*.npz` | `cap_verify.py` `CAP=zoned` | same, zoned cap |
+| `verify_h{96,192}_*.npz`, `closureprobe_h{96,192}_*.npz`, `pin_h{96,192}_*blend*.npz` + `euler_logs/` | the same scripts on Euler (jobs S1-S3, 2026-10-17/18; 5 h, 23 h, 23 h) | the 1/96 and 1/192 cells of the gradient ratio, (1+S)^2, volume-constraint and S rows, which are dashes in the submitted draft |
 | `closureprobe_h{6,12,24,48}_g1_b1_*.npz`, `closureprobe_h{12,24,48}_g0.25_b10_w0.125_blend_*.npz` | `cap_closure_probe.py` | Table 1 row "vol. constraint"; c_phi of claim (iv) |
 | `pin_h24_g1_b1_rb0.5_*.npz`, `pin_h{12,24,48}_g0.25_b10_rb0.5_w0.125_blend_*.npz` | `cap_model.py` (zoned with `V_END=1.56`) | Fig. 3(b,c); S at 6.7 V_f (claim v) |
 | `bubblecheck_h{12,24,48}_*.npz` | `cap_bubble_check.py` | the zoned limit point is the bubble on the neck (Sec. 3.1, claim i) |

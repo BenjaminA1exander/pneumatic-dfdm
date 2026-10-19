@@ -1,0 +1,2 @@
+[probe] zoned_w0.125_blend  h/R = 1/96  dof 99219  V_f/V* = 0.22478047  p_f/p* = 0.66057788  (fold file fold_h96_g0.25_b10_rb0.5_w0.125_blend_20261016-111600.npz)
+[probe] lam_P -7.284e-12  lam_2 0.294694  lam_G 0.140389  lam_V(1e8) 0.224531  lam_V(1e10) 0.224531  c_phi 0.307093  interlacing ok: True  (176 s)
