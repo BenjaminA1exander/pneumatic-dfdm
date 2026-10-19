@@ -10,3 +10,5 @@ results/jaxfdm/*
 !results/jaxfdm/paper/
 results/capopt_fold/*
 !results/capopt_fold/paper/
+results/logs/
+results/*.log

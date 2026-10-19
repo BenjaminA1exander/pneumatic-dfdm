@@ -1,5 +1,0 @@
-[verify] uniform cap  h/R = 1/6  dof 327  GAMMA 1.0 BETA 1.0 RB 0.5  dense eigen checks: True
-[fold] lambda_min(K^-1 K_T) = +3.431e-13, lambda_min(K^-1 K~_T) = 0.289364, lambda_2(K^-1 K_T) = 0.289364
-[fold] V_f/V* = 1.0223019312  p_f/p* = 1.0224923039  bracket 1.5e-13  dp/dV +4.91e-13/-2.02e-13
-[fold] apex height z_f/R = 1.0302266253
-[verify] FOLD_ONLY done in 8 s -> fold_h6_g1_b1_rb0.5_20261019-155501.npz

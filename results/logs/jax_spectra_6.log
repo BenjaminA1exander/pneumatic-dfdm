@@ -1,9 +1,0 @@
-jax_fdm fold spectra, h/R = 1/6, 327 dof; fold K* = 7.58382781
-[state] V = 2.1411041495 (ladder fit 2.1411041494), p = 3.5420172415, residual 1.4e-14, 10 s
-[prescribed] lambda_1..3 =  1.913884e-09   0.289364   0.296627   asym 2.8e-17   (1 s)
-[gas       ] lambda_1..3 =  2.893642e-01   0.296627   0.437780   asym 0.0e+00   (1 s)
-
-                   jax_fdm         SciPy
-prescribed       1.914e-09     3.431e-13
-gas law           0.289364      0.289364
-[saved] ~\pneumatic-dfdm\results\jaxfdm\jaxfdm_fold_spectra_h6.npz  (18 s)
