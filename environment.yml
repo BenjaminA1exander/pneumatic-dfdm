@@ -1,0 +1,22 @@
+# Conda environment that reproduces the Sec. 3.1 results (versions of the authors' machine).
+#   conda env create -f environment.yml
+#   conda activate pneumatic-dfdm
+#   pip install jax_fdm==0.10.0 --no-deps
+#   python jaxfdm_gaslaw/patch/apply_patch.py
+name: pneumatic-dfdm
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - numpy==2.2.6
+      - scipy==1.15.3
+      - matplotlib==3.10.9
+      - jax==0.4.30
+      - jaxlib==0.4.30
+      - equinox==0.11.10
+      - lineax==0.0.7
+      - jaxopt==0.8.5
+      - optimistix
+      - compas==1.17.10

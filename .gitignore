@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.orig
+.pytest_cache/
+
+# Local re-runs land next to the shipped reference data; only the paper/ sets are tracked.
+results/sec31/*
+!results/sec31/paper/
+results/jaxfdm/*
+!results/jaxfdm/paper/
+results/capopt_fold/*
+!results/capopt_fold/paper/

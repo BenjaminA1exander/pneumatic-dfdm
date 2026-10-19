@@ -1,0 +1,14 @@
+fd_through_fold.py [zoned, tri24, 5979 dof, 6278 edges]  K_crit 1.039592  V_crit 0.464265
+s  0.500  V/V_f  0.6438  |g| 1.380e-03  resid 1.4e-14/1.4e-14  FD err (t=1e-2..1e-5) 6.0e-09 2.1e-09 1.8e-08 2.4e-07  Richardson 4.8e-09 2.3e-08 3.2e-07  (170 s)
+s  0.900  V/V_f  0.9159  |g| 2.834e-03  resid 1.7e-14/1.7e-14  FD err (t=1e-2..1e-5) 2.3e-06 1.3e-08 9.1e-08 9.3e-07  Richardson 7.5e-07 1.3e-07 1.2e-06  (370 s)
+s  0.990  V/V_f  0.9902  |g| 5.011e-03  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 1.3e-05 1.2e-07 1.0e-07 1.1e-06  Richardson 4.2e-06 1.8e-07 1.4e-06  (649 s)
+s  0.999  V/V_f  0.9990  |g| 5.456e-03  resid 1.8e-14/1.8e-14  FD err (t=1e-2..1e-5) 1.6e-05 1.5e-07 1.0e-07 1.1e-06  Richardson 5.1e-06 1.9e-07 1.4e-06  (926 s)
+s  1.000  V/V_f  1.0000  |g| 5.510e-03  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 1.6e-05 1.5e-07 1.1e-07 1.1e-06  Richardson 5.2e-06 1.9e-07 1.5e-06  (1158 s)
+s  1.001  V/V_f  1.0010  |g| 5.565e-03  resid 1.8e-14/1.8e-14  FD err (t=1e-2..1e-5) 1.6e-05 1.5e-07 1.1e-07 1.1e-06  Richardson 5.3e-06 1.9e-07 1.4e-06  (1424 s)
+s  1.010  V/V_f  1.0103  |g| 6.114e-03  resid 1.8e-14/1.9e-14  FD err (t=1e-2..1e-5) 1.9e-05 1.8e-07 1.1e-07 1.1e-06  Richardson 6.2e-06 2.0e-07 1.4e-06  (1672 s)
+s  1.100  V/V_f  1.1556  |g| 2.231e-02  resid 1.9e-14/1.9e-14  FD err (t=1e-2..1e-5) 2.5e-05 2.6e-07 8.9e-08 8.7e-07  Richardson 8.0e-06 3.2e-08 1.1e-06  (2005 s)
+s  1.500  V/V_f  2.2173  |g| 1.801e-02  resid 2.0e-14/1.9e-14  FD err (t=1e-2..1e-5) 5.4e-07 5.4e-09 4.8e-10 2.4e-09  Richardson 1.7e-07 1.2e-09 3.4e-09  (2319 s)
+s  2.500  V/V_f  5.0207  |g| 1.528e-02  resid 2.0e-14/2.0e-14  FD err (t=1e-2..1e-5) 9.8e-09 7.1e-11 5.6e-10 3.9e-09  Richardson 3.2e-09 7.3e-10 5.4e-09  (2914 s)
+[saved] $HOME/jaxfdm/sec31/fd_through_fold_zoned_tri24_20261017-185937.npz
+best FD agreement per state: 2.1e-09 1.3e-08 1.0e-07 1.0e-07 1.1e-07 1.1e-07 1.1e-07 3.2e-08 4.8e-10 7.1e-11
+worst of the best: 1.1e-07  (2914 s)

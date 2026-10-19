@@ -1,0 +1,249 @@
+--- jax_fdm/equilibrium/loads.py	2026-05-07 18:25:54.000000000 +0200
++++ "jax_fdm/equilibrium/loads.py"	2026-07-07 12:13:28.214821200 +0200
+@@ -62,8 +62,12 @@
+     """
+     Transform the load vector applied to the face to a vector in its local coordinate system.
+     """
+-    # fxyz = face_xyz(xyz, face)
+-    fxyz = xyz[face, :]
++    # Use face_xyz (not raw xyz[face]) so the -1 padding on triangular faces of a mixed
++    # tri/quad mesh is replaced by the first face vertex instead of wrapping to the last
++    # global node. Without this, a padded tri [a,b,c,-1] is read as the quad [a,b,c,L]
++    # (L = last vertex), giving a garbage Newell normal -> follower pressure points the
++    # wrong way on every triangular face (e.g. the apex fan). face_xyz is gradient-safe.
++    fxyz = face_xyz(xyz, face)
+ 
+     normal = normal_polygon(fxyz)
+     is_zero_normal = jnp.allclose(normal, 0.0)
+--- jax_fdm/equilibrium/models.py	2026-05-07 18:25:54.000000000 +0200
++++ "jax_fdm/equilibrium/models.py"	2026-07-07 12:14:58.777196000 +0200
+@@ -41,6 +41,7 @@
+     `itersolve_fn`: The function that calculates an equilibrium state iteratively. If `None`, the model defaults to forward fixed-point iteration.
+     Note that only the solver must be consistent with the choice of residual function. Defaults to `None`.
+     `iterload_fn`: A load callback that is invoked before starting iterative equilibrium computation. Defaults to `None`.
++    `global_load_fn`: An optional shape-dependent load callback with signature `fn(xyz, load_state, structure) -> load_state`. If provided, it is applied inside `nodes_load` at every iteration (forward AND adjoint), so any load field it derives from the geometry (e.g. a constant-mass follower pressure `p = K / V(xyz)`) is differentiated by the implicit adjoint. Defaults to `None`.
+     `implicit_diff`: If set to `True`, it applies implicit differentiation to speed up backpropagation. Defaults to `True`.
+     `verbose`: Whether to print out calculation info to the terminal. Defaults to `False`.
+     """
+@@ -51,7 +52,8 @@
+                  itersolve_fn=None,
+                  iterload_fn=None,
+                  implicit_diff=True,
+-                 verbose=False):
++                 verbose=False,
++                 global_load_fn=None):
+         self.tmax = tmax
+         self.eta = eta
+         self.is_load_local = is_load_local
+@@ -61,6 +63,8 @@
+         self.eq_iterative_fn = self.select_equilibrium_iterative_fn(self.itersolve_fn)
+         self.implicit_diff = implicit_diff
+         self.verbose = verbose
++        # Opt-in shape-dependent global load hook (default None => stock behaviour unchanged).
++        self.global_load_fn = global_load_fn
+ 
+     # ----------------------------------------------------------------------
+     # Edges
+@@ -130,6 +134,13 @@
+         """
+         Calculate the loads applied to the nodes of the structure.
+         """
++        # Optional shape-dependent global load hook. Because this runs inside the load
++        # function that both the forward fixed point and the implicit adjoint differentiate,
++        # any geometry-derived load field (e.g. constant-mass pressure p = K / V(xyz)) is
++        # captured exactly by the backward pass.
++        if self.global_load_fn is not None:
++            load_state = self.global_load_fn(xyz, load_state, structure)
++
+         nodes_load, edges_load, faces_load = load_state
+ 
+         if is_array(edges_load):
+@@ -503,3 +514,85 @@
+         K.data = K.data.at[diag_indices].set(diag_fd)
+ 
+         return K
++
++
++# ==========================================================================
++# Constant-mass (ideal-gas) follower pressure model
++# ==========================================================================
++
++class ConstantMassModelSparse(EquilibriumModelSparse):
++    """
++    A sparse equilibrium model with a constant-mass (ideal-gas) follower pressure.
++
++    The face-load magnitude is recomputed at every iteration as ``p = sign * gas_k / V(xyz)``,
++    where ``V`` is the volume enclosed by the surface (signed projected-area form). This is
++    injected through the `global_load_fn` hook of `EquilibriumModel`, so the load function
++    the forward fixed point and the implicit `custom_vjp` adjoint both differentiate now
++    depends on the geometry through ``V``.
++
++    Consequences
++    ------------
++    * The backward pass captures the pressure-volume feedback ``dp/dV * dV/dx`` for free,
++      i.e. `value_and_grad` returns the exact constant-mass gradient in one adjoint solve --
++      no outer pressure-settling loop, no manual ``dpsi/dV`` chain rule.
++    * The adjoint operator ``[I - K^-1 dP/dx]`` gains the negative mass feedback term, so it
++      stays non-singular at the *fixed-pressure* limit point (membrane snap-through fold),
++      and the forward Picard becomes more contractive there.
++
++    Notes
++    -----
++    The enclosed volume needs a triangulated face list (`faces_volume`, shape ``(n_tris, 3)``
++    of vertex indices in structure/node order). `unit_faces` is the per-face unit load
++    template (shape ``(n_faces, 3)``, e.g. ``[0, 0, 1]`` per face); if `None`, the incoming
++    `load_state.faces` is used as the template. Use with ``is_load_local=True`` so the unit
++    face load follows the face normal.
++
++    Parameters
++    ----------
++    `faces_volume`: Triangulated faces used to compute the enclosed volume. Required.
++    `gas_k`: The constant mass (pressure-volume product ``p * V``). Defaults to ``1.0``.
++    `sign`: ``+1`` or ``-1`` to select the inflating pressure direction. Defaults to ``1.0``.
++    `unit_faces`: Per-face unit load template. If `None`, uses `load_state.faces`.
++    `volume_floor`: Lower clamp on ``V`` to avoid a divide-by-zero. Defaults to ``1e-9``.
++    """
++    def __init__(self,
++                 *args,
++                 faces_volume=None,
++                 gas_k=1.0,
++                 sign=1.0,
++                 unit_faces=None,
++                 volume_floor=1e-9,
++                 **kwargs):
++        super().__init__(*args, **kwargs)
++        if faces_volume is None:
++            raise ValueError("ConstantMassModelSparse requires `faces_volume` "
++                             "(triangulated faces) to compute the enclosed volume.")
++        self.faces_volume = jnp.asarray(faces_volume)
++        self.gas_k = gas_k
++        self.sign = sign
++        self.unit_faces = None if unit_faces is None else jnp.asarray(unit_faces)
++        self.volume_floor = volume_floor
++        # Wire the constant-mass pressure through the differentiated load function.
++        self.global_load_fn = self.constant_mass_load
++
++    def enclosed_volume(self, xyz):
++        """
++        Volume enclosed between the surface and the plane z=0 (signed projected-area form).
++        """
++        f = self.faces_volume
++        vi, vj, vk = xyz[f[:, 0]], xyz[f[:, 1]], xyz[f[:, 2]]
++        axy = 0.5 * ((vj[:, 0] - vi[:, 0]) * (vk[:, 1] - vi[:, 1])
++                     - (vk[:, 0] - vi[:, 0]) * (vj[:, 1] - vi[:, 1]))
++        zc = (vi[:, 2] + vj[:, 2] + vk[:, 2]) / 3.0
++
++        return jnp.abs(jnp.sum(axy * zc))
++
++    def constant_mass_load(self, xyz, load_state, structure):
++        """
++        Replace the face loads with the constant-mass follower pressure p = sign * gas_k / V.
++        """
++        volume = jnp.maximum(self.enclosed_volume(xyz), self.volume_floor)
++        pressure = self.sign * self.gas_k / volume
++        unit_faces = self.unit_faces if self.unit_faces is not None else load_state.faces
++
++        return load_state._replace(faces=unit_faces * pressure)
+--- jax_fdm/equilibrium/solvers/fixed_point.py	2026-05-07 18:25:54.000000000 +0200
++++ "jax_fdm/equilibrium/solvers/fixed_point.py"	2026-07-07 14:29:20.619240100 +0200
+@@ -1,3 +1,5 @@
++import atexit
++
+ from functools import partial
+ 
+ import jax
+@@ -139,6 +141,60 @@
+ 
+ 
+ # ==========================================================================
++# Convergence bookkeeping (host side, does not interfere with the solves)
++# ==========================================================================
++
++_CONVERGENCE_STATS = {
++    "forward fixed point": {"solves": 0, "failed": 0, "worst": 0.0,
++                            "tol": None, "first_fail": None, "last_fail": None},
++    "adjoint linear solve": {"solves": 0, "failed": 0, "worst": 0.0,
++                             "tol": None, "first_fail": None, "last_fail": None},
++}
++
++
++def _record_convergence(kind, residual, tol):
++    """
++    Host callback: tally one solve and remember failures for the exit summary.
++    """
++    stats = _CONVERGENCE_STATS[kind]
++    residual = float(residual)
++    tol = float(tol)
++    stats["solves"] += 1
++    stats["tol"] = tol
++    # `not (residual <= tol)` so that a NaN residual counts as a failure too
++    if not (residual <= tol):
++        stats["failed"] += 1
++        if stats["first_fail"] is None:
++            stats["first_fail"] = stats["solves"]
++        stats["last_fail"] = stats["solves"]
++        if residual > stats["worst"]:
++            stats["worst"] = residual
++
++
++def convergence_summary():
++    """
++    Print a summary of the solves that exited without converging. Silent if all converged.
++    """
++    for kind, s in _CONVERGENCE_STATS.items():
++        if s["failed"]:
++            print(f"[jax_fdm] WARNING: {kind} did NOT converge in {s['failed']} of "
++                  f"{s['solves']} solves (worst residual {s['worst']:.3e} vs tolerance "
++                  f"{s['tol']:.1e}; failures between solve #{s['first_fail']} and "
++                  f"#{s['last_fail']})", flush=True)
++
++
++def convergence_reset():
++    """
++    Reset the convergence tallies (e.g. between optimisation stages).
++    """
++    for s in _CONVERGENCE_STATS.values():
++        s.update(solves=0, failed=0, worst=0.0, tol=None, first_fail=None, last_fail=None)
++
++
++atexit.register(convergence_summary)
++
++
++# ==========================================================================
+ # Fixed point solver wrapper for implicit differentiation
+ # ==========================================================================
+ 
+@@ -147,7 +203,18 @@
+     """
+     Solve for a fixed point of a function f(a, x) using an iterative solver.
+     """
+-    return solver(f, a, x_init, solver_config)
++    x_star = solver(f, a, x_init, solver_config)
++
++    # The solvers exit silently when they hit tmax, so measure the true fixed-point
++    # residual once here (one extra application of f) and tally it host-side for the
++    # end-of-run summary. The 10x margin absorbs the gap between a damped solver's
++    # internal step-size test (beta * residual) and the raw residual measured here.
++    residual = jnp.mean(jnp.linalg.norm(f(a, x_star) - x_star, axis=1))
++    eta = solver_config["eta"]
++    jax.debug.callback(partial(_record_convergence, "forward fixed point"),
++                       residual, 10.0 * eta)
++
++    return x_star
+ 
+ 
+ def fixed_point_fwd(solver, solver_config, f, a, x_init):
+@@ -405,6 +472,13 @@
+     solution = linear_solve(A_op, vec, solver, throw=False)
+     w = solution.value
+ 
++    # throw=False returns the partial CG iterate on failure, so measure the adjoint
++    # residual explicitly (one extra A application) and tally it host-side so the
++    # end-of-run summary reports gradients built from unconverged adjoint solves.
++    adj_residual = jnp.linalg.norm(A_fn(w) - vec) / (jnp.linalg.norm(vec) + 1e-30)
++    jax.debug.callback(partial(_record_convergence, "adjoint linear solve"),
++                       adj_residual, 1e-4)
++
+     # Calculate the vector Jacobian function v * df / dtheta, evaluated at at x*
+     _, vjp_theta = vjp(lambda theta: f(theta, x_star), theta)
+ 
