@@ -1,0 +1,73 @@
+[verify] uniform cap  h/R = 1/12  dof 1425  GAMMA 1.0 BETA 1.0 RB 0.5  dense eigen checks: True
+[fold] lambda_min(K^-1 K_T) = +3.382e-13, lambda_min(K^-1 K~_T) = 0.284993, lambda_2(K^-1 K_T) = 0.284993
+[fold] V_f/V* = 1.0053105489  p_f/p* = 1.0055081213  bracket 1.5e-13  dp/dV +4.96e-13/-2.40e-13
+
+[P sweep] prescribed-pressure Newton at p = p_f (1 - eps), stable branch
+         state   V/V_f - 1          p      S solve    S tangent   S fin.diff    dxP FD    dxG FD  identity        cP/cG      (1+S)^2 nP s/d nG s/d    lam1 KT   lam1 KTg  |dx/dlnp| |dL/dth| P |dL/dth| G
+[P sweep] fold curvature A = 0.2221 (p = p_f (1 - A u^2), u = 1 - V/V_f); starts at u = sqrt(eps / A)
+     pre 1e-01  -4.700e-01   3.134864      2.83375      2.83375      2.83375   5.6e-10   4.3e-11   1.3e-15  1.46977e+01  1.46977e+01   0/ 0   0/ 0 +3.248e-01 +4.809e-01  1.721e+01  1.124e-02  6.196e-03
+     pre 3e-02  -2.974e-01   3.378687      5.52606      5.52606      5.52606   1.6e-08   7.5e-11   1.1e-15  4.25895e+01  4.25895e+01   0/ 0   0/ 0 +1.803e-01 +3.888e-01  3.696e+01  1.535e-02  7.223e-03
+     pre 1e-02  -1.871e-01   3.448350      9.98685      9.98685      9.98685   1.4e-07   1.0e-10   9.7e-16  1.20711e+02  1.20711e+02   0/ 0   0/ 0 +1.049e-01 +3.438e-01  6.919e+01  2.085e-02  7.899e-03
+     pre 3e-03  -1.085e-01   3.472733     18.77218     18.77218     18.77221   1.5e-06   1.0e-10   6.2e-16  3.90939e+02  3.90939e+02   0/ 0   0/ 0 +5.773e-02 +3.168e-01  1.324e+02  3.109e-02  8.394e-03
+     pre 1e-03  -6.464e-02   3.479699     33.03027     33.03027     33.03069   1.3e-05   1.1e-10   1.5e-15  1.15806e+03  1.15806e+03   0/ 0   0/ 0 +3.341e-02 +3.032e-01  2.348e+02  4.755e-02  8.675e-03
+     pre 3e-04  -3.611e-02   3.482137     60.91125     60.91125     60.91981   1.4e-04   1.3e-10   1.6e-15  3.83300e+03  3.83300e+03   0/ 0   0/ 0 +1.833e-02 +2.949e-01  4.350e+02  7.973e-02  8.857e-03
+     pre 1e-04  -2.106e-02   3.482834    106.05193    106.05193    106.18602   1.3e-03   1.2e-10   2.1e-15  1.14601e+04  1.14601e+04   0/ 0   0/ 0 +1.059e-02 +2.907e-01  7.590e+02  1.319e-01  8.954e-03
+     pre 3e-05  -1.161e-02   3.483078    194.25240    194.25240    194.49690   1.3e-03   1.9e-10   1.3e-15  3.81235e+04  3.81235e+04   0/ 0   0/ 0 +5.803e-03 +2.881e-01  1.392e+03  2.339e-01  9.015e-03
+     pre 1e-05  -6.725e-03   3.483147    337.01625    337.01625    337.44036   1.3e-03   2.1e-10   1.2e-15  1.14255e+05  1.14255e+05   0/ 0   0/ 0 +3.351e-03 +2.868e-01  2.417e+03  3.989e-01  9.046e-03
+     pre 1e-06  -2.133e-03   3.483179   1067.39421   1067.39421   1068.74770   1.3e-03   1.8e-10   1.1e-15  1.14147e+06  1.14147e+06   0/ 0   0/ 0 +1.060e-03 +2.856e-01  7.660e+03  1.244e+00  9.075e-03
+     pre 1e-07  -6.753e-04   3.483182   3377.05051   3377.05051   3381.34971   1.3e-03   1.3e-10   2.5e-15  1.14112e+07  1.14112e+07   0/ 0   0/ 0 +3.353e-04 +2.852e-01  2.424e+04  3.915e+00  9.085e-03
+   above 1e-06  p = p_f (1 + 1e-06): Newton fails after 40 its, V/V_f - 1 = -1.291e-03
+   above 1e-04  p = p_f (1 + 1e-04): Newton fails after 40 its, V/V_f - 1 = +3.480e-04
+   above 1e-02  p = p_f (1 + 1e-02): Newton fails after 40 its, V/V_f - 1 = -1.078e-02
+
+[post fold] volume-path states beyond the fold (unstable branch under prescribed pressure)
+         state   V/V_f - 1          p      S solve    S tangent   S fin.diff    dxP FD    dxG FD  identity        cP/cG      (1+S)^2 nP s/d nG s/d    lam1 KT   lam1 KTg  |dx/dlnp| |dL/dth| P |dL/dth| G
+    post 1e-04  +1.000e-04   3.483182 -22822.60115 -22822.60115          nan       nan   1.3e-10   1.2e-15  5.20825e+08  5.20825e+08   1/ 1   0/ 0 -4.962e-05 +2.850e-01  1.638e+05  2.639e+01  9.090e-03
+    post 3e-04  +3.000e-04   3.483182  -7609.06922  -7609.06922          nan       nan   1.3e-10   1.5e-15  5.78827e+07  5.78827e+07   1/ 1   0/ 0 -1.488e-04 +2.849e-01  5.463e+04  8.791e+00  9.091e-03
+    post 1e-03  +1.000e-03   3.483182  -2284.33331  -2284.33331          nan       nan   1.3e-10   2.5e-15  5.21361e+06  5.21361e+06   1/ 1   0/ 0 -4.960e-04 +2.847e-01  1.640e+04  2.633e+00  9.095e-03
+    post 3e-03  +3.000e-03   3.483175   -762.98097   -762.98097          nan       nan   1.3e-10   1.5e-15  5.80615e+05  5.80615e+05   1/ 1   0/ 0 -1.486e-03 +2.842e-01  5.479e+03  8.732e-01  9.108e-03
+    post 1e-02  +1.000e-02   3.483107   -230.51035   -230.51035   -237.31365   2.9e-02   1.3e-10   1.7e-15  5.26750e+04  5.26750e+04   1/ 1   0/ 0 -4.932e-03 +2.823e-01  1.657e+03  2.575e-01  9.153e-03
+    post 3e-02  +3.000e-02   3.482522    -78.38350    -78.38350    -78.41052   3.4e-04   1.3e-10   1.4e-15  5.98821e+03  5.98821e+03   1/ 1   0/ 0 -1.462e-02 +2.772e-01  5.649e+02  8.166e-02  9.281e-03
+    post 1e-01  +1.000e-01   3.476480    -25.16432    -25.16432    -25.16440   3.2e-06   1.5e-10   3.5e-15  5.83914e+02  5.83914e+02   1/ 1   0/ 0 -4.673e-02 +2.603e-01  1.828e+02  2.077e-02  9.726e-03
+    post 3e-01  +3.000e-01   3.435626    -10.02060    -10.02060    -10.02060   5.9e-08   1.8e-10   2.6e-15  8.13713e+01  8.13713e+01   1/ 1   0/ 0 -1.255e-01 +2.209e-01  7.388e+01  7.626e-03  1.094e-02
+    post 6e-01  +6.000e-01   3.343696     -6.29977     -6.29977     -6.29977   6.0e-09   2.5e-10   2.9e-15  2.80876e+01  2.80876e+01   1/ 1   0/ 0 -2.168e-01 +1.787e-01  4.698e+01  9.321e-03  1.249e-02
+
+[gas law] continuation in K_gas, gas-law Newton only
+   K/K0  1.00000  V/V_f  0.795774  p/p_f  0.987769  S      8.9715  neg K_T 0  neg K~_T 0  newton 0
+   K/K0  1.03164  V/V_f  0.818550  p/p_f  0.990671  S     10.3615  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.06329  V/V_f  0.841570  p/p_f  0.993127  S     12.1766  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.09493  V/V_f  0.864840  p/p_f  0.995166  S     14.6444  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.12657  V/V_f  0.888363  p/p_f  0.996812  S     18.1902  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.15822  V/V_f  0.912145  p/p_f  0.998091  S     23.7120  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.18986  V/V_f  0.936188  p/p_f  0.999027  S     33.4874  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.22150  V/V_f  0.960496  p/p_f  0.999639  S     55.4813  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.25314  V/V_f  0.985071  p/p_f  0.999950  S    150.5640  neg K_T 0  neg K~_T 0  newton 2
+   K/K0  1.27371  V/V_f  1.001190  p/p_f  1.000000  S  -1920.5334  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.28479  V/V_f  1.009916  p/p_f  0.999979  S   -232.4374  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.31643  V/V_f  1.035033  p/p_f  0.999743  S    -67.4570  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.34807  V/V_f  1.060424  p/p_f  0.999261  S    -40.0955  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.37972  V/V_f  1.086089  p/p_f  0.998549  S    -28.8463  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.41136  V/V_f  1.112031  p/p_f  0.997621  S    -22.7183  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.44300  V/V_f  1.138249  p/p_f  0.996494  S    -18.8651  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.47465  V/V_f  1.164746  p/p_f  0.995179  S    -16.2201  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.50629  V/V_f  1.191520  p/p_f  0.993692  S    -14.2931  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.53793  V/V_f  1.218573  p/p_f  0.992043  S    -12.8277  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.56957  V/V_f  1.245904  p/p_f  0.990244  S    -11.6765  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.60122  V/V_f  1.273513  p/p_f  0.988307  S    -10.7488  neg K_T 1  neg K~_T 0  newton 2
+   K/K0  1.63128  V/V_f  1.300000  p/p_f  0.986347  S    -10.0206  neg K_T 1  neg K~_T 0  newton 2
+[gas law] 400 states, V monotone in K: True, max relative V jump per step 1.424e-03 (mean 1.231e-03), min S -1920.5334, max S past the fold -10.0206, Newton its max 2
+[pole] |dx/dln p| ~ (1 - V/V_f)^n, 1e-4 <= 1 - V/V_f <= 1.05e-2: n = -1.0030 (3 points)
+[pole] |dL/dtheta| prescribed ~ (1 - V/V_f)^n, 1e-4 <= 1 - V/V_f <= 1.05e-2: n = -0.9935 (3 points)
+[pole] |dL/dtheta| gas law ~ (1 - V/V_f)^n, 1e-4 <= 1 - V/V_f <= 1.05e-2: n = -0.0019 (3 points)
+[grad FD] P: adjoint -1.5655489084e-04  FD -1.5655489682e-04  rel 3.8e-08
+[grad FD] G: adjoint -2.5515037747e-04  FD -2.5515038138e-04  rel 1.5e-08
+
+[table1] uniform cap, h/R = 1/12  (gradient ratio = |dL/dtheta|_p / |dL/dtheta|_Kgas at p = p_f(1 - eps))
+[table1] p_f/p*                       1.0055
+[table1] lambda_min at V_f, prescribed 3.4e-13   gas law 0.285   (vol. constraint: cap_closure_probe.py)
+[table1] eps = 1e-03: gradient ratio 5.5   (1 + S)^2 1158   (S = 33.03; cP/cG = 1158.06)
+[table1] eps = 1e-07: gradient ratio 430.9   (1 + S)^2 1.141e+07   (S = 3377.05; cP/cG = 1.14112e+07)
+[table1] pole exponent n, |dx/dln p|: -1.0030
+[table1] pole exponent n, |dL/dtheta| prescribed: -0.9935
+[table1] pole exponent n, |dL/dtheta| gas law: -0.0019
+[verify] done in 149 s -> verify_h12_g1_b1_rb0.5_20261019-155849.npz

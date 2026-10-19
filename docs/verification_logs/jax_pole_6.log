@@ -1,0 +1,18 @@
+jax_fdm pole exponent, h/R = 1/6, 327 dof, K* = 7.58382781
+  s=0.850000  1-V/V*=1.453e-01  |g_gas|=1.730965e-02  |g_presc|=5.222824e-02  drift=1.7e-14  (44 s)
+  s=0.922846  1-V/V*=7.591e-02  |g_gas|=1.817383e-02  |g_presc|=8.473899e-02  drift=1.8e-14  (1 s)
+  s=0.960316  1-V/V*=3.935e-02  |g_gas|=1.862875e-02  |g_presc|=1.476946e-01  drift=1.5e-14  (1 s)
+  s=0.979588  1-V/V*=2.032e-02  |g_gas|=1.886494e-02  |g_presc|=2.702115e-01  drift=1.6e-14  (1 s)
+  s=0.989501  1-V/V*=1.048e-02  |g_gas|=1.898692e-02  |g_presc|=5.085661e-01  drift=1.5e-14  (1 s)
+  s=0.994600  1-V/V*=5.394e-03  |g_gas|=1.904978e-02  |g_presc|=9.720841e-01  drift=1.7e-14  (1 s)
+  s=0.997222  1-V/V*=2.776e-03  |g_gas|=1.908214e-02  |g_presc|=1.873313e+00  drift=1.4e-14  (1 s)
+  s=0.998571  1-V/V*=1.428e-03  |g_gas|=1.909879e-02  |g_presc|=3.625494e+00  drift=1.6e-14  (1 s)
+  s=0.999265  1-V/V*=7.348e-04  |g_gas|=1.910736e-02  |g_presc|=7.032051e+00  drift=1.7e-14  (1 s)
+  s=0.999622  1-V/V*=3.780e-04  |g_gas|=1.911177e-02  |g_presc|=1.365496e+01  drift=1.5e-14  (1 s)
+  s=0.999806  1-V/V*=1.944e-04  |g_gas|=1.911403e-02  |g_presc|=2.653086e+01  drift=1.6e-14  (9 s)
+  s=0.999900  1-V/V*=1.000e-04  |g_gas|=1.911520e-02  |g_presc|=5.156316e+01  drift=1.7e-14  (10 s)
+
+[pole] h/R = 1/6: n_presc = -0.994, n_gas = -0.0012 (8 stations, 82 s)
+[check] |g_gas| vs dense reference (limitpoint_smref_tri6_scipyfold.npz) at the same K_gas: max rel diff 8.7e-09
+[check] |g_presc| vs dense reference (limitpoint_smref_tri6_scipyfold.npz) at the same K_gas: max rel diff 1.3e-04
+[saved] ~\pneumatic-dfdm\results\jaxfdm\jaxfdm_pole_h6.npz

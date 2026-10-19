@@ -1,0 +1,8 @@
+    fold bracketed by V/V* = 1.00000 (p' = +8.9867e-03) and 1.02000 (p' = -5.2282e-03)
+h/R = 1/8: 249 nodes, 199 free, 446 triangles, 694 edges   (8.0 s)
+discrete maximum: p*_h R/N0 = 2.02557057  (p*_h/p* = 1.012785),  V*_h/V* = 1.01245728,  p' = -1.47e-09
+  mu1 R^2/N0 = -1.168e-08,  mu2 R^2/N0 = 3.3349,  grad V . phi / (|grad V||phi|) = 0.9813,  corr(phi.n, z) = +0.999988
+  mu1 at p = 0: 5.7591  (Dirichlet limit j01^2 = 5.7832)
+  lambda_min(K^-1 K_T) at the maximum = -1.015e-09, at p = 0: 1.000000 (exactly 1), last state: -0.1816
+wrote ~\pneumatic-dfdm\results\sec31\fig2_method.pdf  (77 kB)
+wrote ~\pneumatic-dfdm\results\sec31\fig2_method.png  (578 kB)

@@ -1,0 +1,4 @@
+[probe] zoned_w0.125_blend  h/R = 1/12  dof 1425  V_f/V* = 0.22282399  p_f/p* = 0.63620478  (fold file fold_h12_g0.25_b10_rb0.5_w0.125_blend_20261019-155907.npz)
+[probe] lam_P -6.153e-13  lam_2 0.309282  lam_G 0.182597  lam_V(1e8) 0.283469  lam_V(1e10) 0.283469  c_phi 0.394319  interlacing ok: True  (2 s)
+[table1] vol. constraint lambda_min at V_f = 0.283   (gas law 0.183; c_phi = 0.394)
+[probe] -> closureprobe_h12_g0.25_b10_w0.125_blend_20261019-160043.npz

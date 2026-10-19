@@ -32,6 +32,8 @@ def kind_of(name):
 def compare(a, b):
     out = []
     for k in sorted(set(a.files) & set(b.files)):
+        if k in ("seconds", "wall_s", "newton_its"):          # wall time, machine-dependent
+            continue
         x, y = a[k], b[k]
         if x.dtype.kind not in "fiu" or y.dtype.kind not in "fiu":
             continue

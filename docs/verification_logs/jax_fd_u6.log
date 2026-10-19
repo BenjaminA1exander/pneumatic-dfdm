@@ -1,0 +1,14 @@
+fd_through_fold [uniform, tri6, 327 dof, 400 edges]  K_f 7.583828  V_f 2.141104  (SciPy fold)
+s  0.500  V/V_f  0.5477  |g| 1.359e-02  resid 1.4e-14/1.2e-14  FD err (t=1e-2..1e-5) 5.1e-08 1.7e-08 1.3e-08 3.6e-08  Richardson 4.0e-08 1.2e-08 5.2e-08  (55 s)
+s  0.900  V/V_f  0.9021  |g| 1.790e-02  resid 1.3e-14/1.5e-14  FD err (t=1e-2..1e-5) 4.6e-07 5.3e-07 5.3e-07 6.1e-07  Richardson 5.5e-07 5.4e-07 6.4e-07  (102 s)
+s  0.990  V/V_f  0.9900  |g| 1.899e-02  resid 1.2e-14/1.5e-14  FD err (t=1e-2..1e-5) 2.5e-07 1.3e-07 1.3e-07 4.9e-08  Richardson 9.4e-08 1.2e-07 2.3e-08  (146 s)
+s  0.999  V/V_f  0.9990  |g| 1.910e-02  resid 1.2e-14/1.5e-14  FD err (t=1e-2..1e-5) 2.7e-07 1.5e-07 1.4e-07 7.6e-08  Richardson 1.1e-07 1.4e-07 5.6e-08  (192 s)
+s  1.000  V/V_f  1.0000  |g| 1.912e-02  resid 1.3e-14/1.5e-14  FD err (t=1e-2..1e-5) 2.7e-07 1.5e-07 1.4e-07 7.7e-08  Richardson 1.1e-07 1.4e-07 5.6e-08  (234 s)
+s  1.001  V/V_f  1.0010  |g| 1.913e-02  resid 1.3e-14/1.5e-14  FD err (t=1e-2..1e-5) 2.7e-07 1.5e-07 1.4e-07 7.8e-08  Richardson 1.1e-07 1.4e-07 5.7e-08  (270 s)
+s  1.010  V/V_f  1.0100  |g| 1.924e-02  resid 1.4e-14/1.5e-14  FD err (t=1e-2..1e-5) 2.9e-07 1.7e-07 1.6e-07 8.8e-08  Richardson 1.2e-07 1.5e-07 6.5e-08  (307 s)
+s  1.100  V/V_f  1.1021  |g| 2.036e-02  resid 1.6e-14/1.5e-14  FD err (t=1e-2..1e-5) 5.2e-07 3.4e-07 3.4e-07 2.7e-07  Richardson 2.9e-07 3.3e-07 2.5e-07  (352 s)
+s  1.500  V/V_f  1.5527  |g| 2.506e-02  resid 1.5e-14/1.6e-14  FD err (t=1e-2..1e-5) 3.1e-07 5.1e-07 5.2e-07 5.9e-07  Richardson 5.8e-07 5.2e-07 6.1e-07  (397 s)
+s  2.500  V/V_f  2.9436  |g| 3.109e-02  resid 1.5e-14/1.7e-14  FD err (t=1e-2..1e-5) 3.9e-08 1.8e-07 1.8e-07 1.4e-07  Richardson 2.5e-07 1.8e-07 1.3e-07  (444 s)
+[saved] ~\pneumatic-dfdm\results\jaxfdm\fd_through_fold_uniform_tri6_20261019-162200.npz
+best FD agreement per state: 1.2e-08 4.6e-07 2.3e-08 5.6e-08 5.6e-08 5.7e-08 6.5e-08 2.5e-07 3.1e-07 3.9e-08
+worst of the best: 4.6e-07  (444 s)

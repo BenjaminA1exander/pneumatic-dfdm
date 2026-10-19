@@ -1,0 +1,4 @@
+[probe] uniform  h/R = 1/24  dof 5979  V_f/V* = 1.00129074  p_f/p* = 1.00134523  (fold file fold_h24_g1_b1_rb0.5_20261019-160209.npz)
+[probe] lam_P -4.821e-13  lam_2 0.282866  lam_G 0.282866  lam_V(1e8) 0.282866  lam_V(1e10) 0.282866  c_phi 1.126857  interlacing ok: True  (31 s)
+[table1] vol. constraint lambda_min at V_f = 0.283   (gas law 0.283; c_phi = 1.127)
+[probe] -> closureprobe_h24_g1_b1_20261019-160958.npz
