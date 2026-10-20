@@ -1,0 +1,14 @@
+fd_through_fold [zoned, tri12, 1425 dof, 1572 edges, edges soft/belt/outer [np.int64(300), np.int64(198), np.int64(1074)]]  K_f 1.028509  V_f 0.466681  (SciPy fold)
+s  0.500  V/V_f  0.6366  |g| 3.068e-03  resid 1.4e-14/1.5e-14  FD err (t=1e-2..1e-5) 5.5e-08 1.3e-09 2.0e-08 1.7e-07  Richardson 2.0e-08 2.6e-08 2.2e-07  (106 s)
+s  0.900  V/V_f  0.9134  |g| 6.937e-03  resid 1.7e-14/1.6e-14  FD err (t=1e-2..1e-5) 7.9e-06 7.4e-08 4.4e-08 4.5e-07  Richardson 2.5e-06 8.4e-08 5.9e-07  (222 s)
+s  0.990  V/V_f  0.9902  |g| 1.130e-02  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 2.3e-05 2.3e-07 4.8e-08 5.0e-07  Richardson 7.4e-06 1.4e-07 6.5e-07  (345 s)
+s  0.999  V/V_f  0.9990  |g| 1.202e-02  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 2.5e-05 2.4e-07 4.4e-08 4.7e-07  Richardson 7.9e-06 1.4e-07 6.1e-07  (471 s)
+s  1.000  V/V_f  1.0000  |g| 1.211e-02  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 2.5e-05 2.5e-07 4.7e-08 4.9e-07  Richardson 8.0e-06 1.4e-07 6.4e-07  (600 s)
+s  1.001  V/V_f  1.0010  |g| 1.219e-02  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 2.5e-05 2.5e-07 4.6e-08 4.8e-07  Richardson 8.1e-06 1.4e-07 6.2e-07  (725 s)
+s  1.010  V/V_f  1.0102  |g| 1.302e-02  resid 1.7e-14/1.8e-14  FD err (t=1e-2..1e-5) 2.7e-05 2.6e-07 4.5e-08 4.7e-07  Richardson 8.6e-06 1.5e-07 6.1e-07  (855 s)
+s  1.100  V/V_f  1.1274  |g| 2.638e-02  resid 1.8e-14/1.8e-14  FD err (t=1e-2..1e-5) 1.1e-05 1.1e-07 4.2e-08 4.1e-07  Richardson 3.5e-06 1.8e-08 5.3e-07  (997 s)
+s  1.500  V/V_f  1.9835  |g| 2.959e-02  resid 1.6e-14/1.7e-14  FD err (t=1e-2..1e-5) 2.8e-07 4.9e-09 2.1e-08 2.0e-07  Richardson 8.8e-08 2.6e-08 2.6e-07  (1122 s)
+s  2.500  V/V_f  4.4098  |g| 2.283e-02  resid 1.5e-14/1.6e-14  FD err (t=1e-2..1e-5) 1.0e-06 1.1e-08 1.3e-08 1.3e-07  Richardson 3.2e-07 1.4e-08 1.7e-07  (1255 s)
+[saved] ~\pneumatic-dfdm\results\jaxfdm\fd_through_fold_zoned_tri12_20261019-184317.npz
+best FD agreement per state: 1.3e-09 4.4e-08 4.8e-08 4.4e-08 4.7e-08 4.6e-08 4.5e-08 1.8e-08 4.9e-09 1.1e-08
+worst of the best: 4.8e-08  (1255 s)

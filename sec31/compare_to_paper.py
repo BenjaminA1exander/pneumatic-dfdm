@@ -3,10 +3,18 @@ r"""compare_to_paper.py -- compare your re-runs with the shipped files of the pa
 For every result file in results/sec31 and results/jaxfdm (your runs) the newest shipped
 file of the same kind, cap and mesh in the paper/ folder is found, and every numeric
 array the two have in common is compared: the largest relative difference
-max |a - b| / max(|b|, floor) is printed per array (floor 1e-300, so near-zero
-quantities such as lambda_min at the fold, ~1e-13, compare in absolute terms through the
-scale of the reference; those are listed separately with their absolute difference).
+max |a - b| / max |b| is printed per array; a quantity whose reference is below 1e-8 in
+magnitude (lambda_min at the fold, the residual, the drift: zero up to the fold or solver
+tolerance) is listed with its absolute difference instead.
 Arrays of unequal shape (different number of path states) are reported as such.
+
+Prescribed-pressure quantities of the adjoint-reference files (limitpoint_smref_*: err_f,
+err_f_probe, sm_vs_lu, ng_f) are condition-number limited, error ~ kappa(A_f) x solver
+tolerance; at the station on V_f itself kappa is 1e10 or more, so those entries are round-off
+and differ between runs by orders of magnitude. For these arrays the V_f station is left out
+and the others are compared in decades, max |log10(x / y)|, printed as
+"fold-limited: within N decades away from V_f"; agreement within one decade is the expected
+outcome (the paper quotes them as orders of magnitude only).
 
 RUN  python compare_to_paper.py            (prints one block per file pair)
 """
@@ -20,8 +28,10 @@ import numpy as np
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIRS = [os.path.join(ROOT, "results", "sec31"), os.path.join(ROOT, "results", "jaxfdm")]
 STAMP = re.compile(r"_\d{8}-\d{6}")
-# key arrays whose values are quoted in the paper, compared with a tolerance; everything else is informational
+# differences above TOL are listed per array; smaller ones are only counted
 TOL = 1e-6
+# prescribed-pressure quantities that scale with the condition number of the singular tangent (see the docstring)
+FOLD_LIMITED = ("err_f", "err_f_probe", "sm_vs_lu", "ng_f")
 
 
 def kind_of(name):
@@ -46,9 +56,14 @@ def compare(a, b):
         m = np.isfinite(x) & np.isfinite(y)
         if not m.any():
             continue
+        if k in FOLD_LIMITED and "s" in b.files and x.ndim == 1 and len(x) == len(b["s"]):
+            m &= np.abs(np.asarray(b["s"], float) - 1.0) > 1e-12          # leave out the station on V_f
+            dec = np.abs(np.log10(x[m] / y[m])).max()
+            out.append((k, f"fold-limited: within {dec:.1f} decades away from V_f"))
+            continue
         scale = np.abs(y[m]).max()
         diff = np.abs(x[m] - y[m]).max()
-        if scale < 1e-9:
+        if scale < 1e-8:                                           # a quantity that is zero up to the fold tolerance
             out.append((k, f"abs {diff:.1e} (reference ~{scale:.1e})"))
         else:
             out.append((k, diff / scale))

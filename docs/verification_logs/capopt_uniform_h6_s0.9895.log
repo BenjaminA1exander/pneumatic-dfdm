@@ -1,0 +1,6 @@
+cap optimisation to a target just past its limit point [uniform], h/R = 1/6, 327 dof, 400 design variables; fold V_f 2.141104 p_f 3.542017
+ target: delta = 0.4 x/R + 0.6 ((r/R)^2 - mean); target design's own limit point V_f,t/V_f = 0.8797, p_f,t/p_f = 0.7981; target V_t/V_f,t = 1.0500 (V_t/V_f = 0.9237, p_t/p_f = 0.7977); its prescribed-pressure tangent lam1 -0.0200, S -4.485e+01, (1+S)^2 1.923e+03
+ start s = 0.9895: V/V_f = 0.9895, p/p_f = 1.0000, S +2.246e+02, (1+S)^2 5.092e+04, L0 = 2.586216e-02
+  presc:  118 its (objective stalled (rel. decrease < 1e-10, 10 its)); L 2.5862e-02 -> 7.0133e-03; |g| 5.02e-01 -> 3.95e+02; Newton 23073; fwd fail 385; LS fail 0; end p/p_f 1.0000 V/V_f 0.9539; lam1 own tangent +0.005 -> +1.517e-06 (negative at 4/13 checks); end S +7.336e+05, (1+S)^2 5.382e+11; max node dist to target 1.49e-01R; shortest edge / target's 1.680; q/q_t' in [0.403, 1.102] (369 s)
+  gas  : 1000 its (max iterations); L 2.5862e-02 -> 4.7509e-10; |g| 1.69e-02 -> 6.04e-08; Newton 1831; fwd fail 0; LS fail 0; end p/p_f 1.0712 V/V_f 0.9237; lam1 own tangent +0.292 -> +3.065e-01 (negative at 0/102 checks); end S -4.492e+01, (1+S)^2 1.929e+03; max node dist to target 8.49e-05R; shortest edge / target's 1.000; q/q_t' in [0.376, 1.428] (120 s)
+[saved] capopt_fold_uniform_h6_s0.9895_eps0.05.npz (489 s)

@@ -41,6 +41,11 @@ import jax.numpy as jnp                                      # noqa: E402
 
 import jaxfdm_gaslaw.common as L                             # noqa: E402
 
+# The gradient under test must come from the GMRES adjoint rule at rtol 1e-12 (jaxfdm_gaslaw/common.py): the rule
+# shipped with jax_fdm (NormalCG at 1e-6) caps the gradient accuracy at about 1e-6 relative, which a finite
+# difference at any step size sees as a constant offset.
+L.use_adjoint("gmres")
+
 ZONED = os.environ.get("ZONED", "0") == "1"
 GAMMA = float(os.environ.get("GAMMA", "0.25"))
 BETA = float(os.environ.get("BETA", "10"))
