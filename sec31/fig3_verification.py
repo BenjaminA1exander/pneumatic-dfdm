@@ -263,12 +263,13 @@ e.legend(handles=[Line2D([], [], color="0.2", lw=1.2, ls=ls_, marker=mk_, ms=3.2
                                          ("-.", "s", r"$\tilde\lambda_{\min}$"))],
          loc="lower left", borderaxespad=0.3, handlelength=2.4, labelspacing=0.25)
 
-# (f) optimisation to a target form 5% past its own limit point (cap_optimise_target.py), h/R = 1/24, two
-#     starts below the limit point per cap: the runs that stop on the limit point (uniform 0.47 V_f, which creeps,
-#     and zoned 0.99 V_f, which jumps the fold, are omitted and disclosed in the text). Uniform dark, zoned lighter.
-#     Cross = prescribed pressure stops.
-for fn, w in [("uniform_h24_s0.7", 0.0), ("uniform_h24_s0.9895", 0.0),
-              ("zoned_blend_h24_s0.4", 0.5), ("zoned_blend_h24_s0.7", 0.5)]:
+# (f) optimisation to a target form 5% past its own limit point (cap_optimise_target.py), h/R = 1/24, all three
+#     starts below the limit point per cap (0.47, 0.72, 0.99 V_f uniform; 0.57, 0.78, 0.99 V_f zoned). Uniform dark,
+#     zoned lighter. Cross = prescribed pressure stops on a singular tangent; the two prescribed-pressure runs without
+#     a cross use all 1000 iterations: uniform 0.47 V_f stalls at 63 %, zoned 0.99 V_f reaches the target by crossing
+#     onto the unstable branch.
+for fn, w in [("uniform_h24_s0.4", 0.0), ("uniform_h24_s0.7", 0.0), ("uniform_h24_s0.9895", 0.0),
+              ("zoned_blend_h24_s0.4", 0.5), ("zoned_blend_h24_s0.7", 0.5), ("zoned_blend_h24_s0.9895", 0.5)]:
     CO = np.load(os.path.join(CAPOPT, f"capopt_fold_{fn}_eps0.05.npz"))
     fg = CO["gas_f"]
     f.semilogy(np.arange(len(fg)), fg / fg[0], color=shade(C_MASS, w), ls="-", lw=1.2, zorder=3)
