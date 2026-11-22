@@ -176,5 +176,5 @@ agreement with the shipped files and the published table.
 
 The code in `fdm_limit_point/`, `jaxfdm_gaslaw/common.py`, `sec31/` and `tests/` is by the
 author of the paper. `jaxfdm_gaslaw/patch/` contains modified files of
-[jax_fdm](https://github.com/arpastrana/jax_fdm) (MIT licence, Rafael Pastrana). A licence
-file for this repository has not been chosen yet.
+[jax_fdm](https://github.com/arpastrana/jax_fdm) (MIT licence, Rafael Pastrana), which keep their original notice. Everything else is released
+under the MIT licence, see `LICENSE`.
